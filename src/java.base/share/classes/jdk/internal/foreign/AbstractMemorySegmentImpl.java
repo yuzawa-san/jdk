@@ -548,10 +548,10 @@ public abstract non-sealed class AbstractMemorySegmentImpl implements MemorySegm
                 throw new AssertionError("Cannot get here");
             }
         } else if (unmapper == null) {
-            return new NativeMemorySegmentImpl(bbAddress + (pos << scaleFactor), size << scaleFactor, readOnly, bufferSession);
+            return new NativeMemorySegmentImpl(MemoryAddress.ofLong(bbAddress + (pos << scaleFactor)), size << scaleFactor, readOnly, bufferSession);
         } else {
             // we can ignore scale factor here, a mapped buffer is always a byte buffer, so scaleFactor == 0.
-            return new MappedMemorySegmentImpl(bbAddress + pos, unmapper, size, readOnly, bufferSession);
+            return new MappedMemorySegmentImpl(MemoryAddress.ofLong(bbAddress + pos), unmapper, size, readOnly, bufferSession);
         }
     }
 

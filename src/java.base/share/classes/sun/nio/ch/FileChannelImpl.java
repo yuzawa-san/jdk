@@ -28,6 +28,7 @@ package sun.nio.ch;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.lang.foreign.MemoryAddress;
 import java.lang.foreign.MemorySegment;
 import java.lang.foreign.MemorySession;
 import java.lang.ref.Cleaner.Cleanable;
@@ -1222,7 +1223,7 @@ public class FileChannelImpl
         }
         if (unmapper != null) {
             AbstractMemorySegmentImpl segment =
-                new MappedMemorySegmentImpl(unmapper.address(), unmapper, size,
+                new MappedMemorySegmentImpl(MemoryAddress.ofLong(unmapper.address()), unmapper, size,
                                             readOnly, session);
             MemorySessionImpl.ResourceList.ResourceCleanup resource =
                 new MemorySessionImpl.ResourceList.ResourceCleanup() {
